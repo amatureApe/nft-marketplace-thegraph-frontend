@@ -136,6 +136,7 @@ async function main() {
     useMasterKey: true
   });
 
+  console.log(listedResponse, boughtResponse, canceledResponse)
   if (listedResponse.success && canceledResponse.success && boughtResponse.success) {
     console.log("Success! Database updated with watching events");
   } else {

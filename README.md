@@ -32,3 +32,13 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Start Up blockchain and sync with Moralis
+
+**Some commands must be run on smart contract repo
+
+1. Start blockchain on smart contracts with hh node
+2. Sync with Moralis server with yarn moralis:sync
+3. Login to Moralis -> go to Server -> View Details on Server
+   -> Devchain Proxy Server -> Connected -> Reset Local Chain
+4. Mint NFT on new localchain with yarn hardhat run scripts/mint-and-list.js

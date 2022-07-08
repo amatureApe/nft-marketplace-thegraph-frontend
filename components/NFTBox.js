@@ -27,6 +27,8 @@ export default function NFTBox({ price, nftAddress, tokenId, marketplaceAddress,
   const [imageURI, setImageURI] = useState("");
   const [tokenName, setTokenName] = useState("");
   const [tokenDescription, setTokenDescription] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const hideModal = () => setShowModal(false);
 
   const { runContractFunction: getTokenURI } = useWeb3Contract({
     abi: nftAbi,
@@ -53,12 +55,17 @@ export default function NFTBox({ price, nftAddress, tokenId, marketplaceAddress,
 
   useEffect(() => {
     if (isWeb3Enabled) {
-      updateUI()
+      updateUI();
+      console.log(showModal)
     }
   }, [isWeb3Enabled]);
 
   const isOwnedByUser = seller === account || seller == undefined;
   const formattedSellerAddress = isOwnedByUser ? "you" : truncateStr(seller || "", 15);
+
+  const handleCardClick = () => {
+    isOwnedByUser ? setShowModal(true) : console.log("Let's buy")
+  }
 
   return (
     <div>
@@ -67,10 +74,14 @@ export default function NFTBox({ price, nftAddress, tokenId, marketplaceAddress,
           (
             <div>
               <UpdateListingModal
-                isVisible={false}
+                isVisible={showModal}
+                tokenId={tokenId}
+                marketplaceAddress={marketplaceAddress}
+                nftAddress={nftAddress}
+                onClose={hideModal}
               />
               <div className="mx-3">
-                <Card title={tokenName} description={tokenDescription}>
+                <Card title={tokenName} description={tokenDescription} onClick={handleCardClick}>
                   <div className="p-2">
                     <div className="flex flex-col items-end gap-2">
                       <div>#{tokenId}</div>
@@ -80,7 +91,7 @@ export default function NFTBox({ price, nftAddress, tokenId, marketplaceAddress,
                         src={imageURI}
                         height="200"
                         width="200" />
-                      <div className="font-bold">{ethers.utils.formatUnits(price, "ether")}</div>
+                      <div className="font-bold">{ethers.utils.formatUnits(price, "ether")} ETH</div>
                     </div>
                   </div>
                 </Card>

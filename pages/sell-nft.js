@@ -45,8 +45,8 @@ export default function Home() {
     console.log("Ok! Now time to list");
     const listOptions = {
       abi: nftMarketplaceAbi,
-      contratAddress: marketplaceAddress,
-      functioName: "listItem",
+      contractAddress: marketplaceAddress,
+      functionName: "listItem",
       params: {
         nftAddress: nftAddress,
         tokenId: tokenId,
@@ -56,17 +56,18 @@ export default function Home() {
 
     await runContractFunction({
       params: listOptions,
-      onSuccess: () => handleListSuccess(),
-      onError: (error) => console.log(error)
+      onSuccess: handleListSuccess,
+      onError: (error) => console.log("PING", error),
     })
   }
 
-  async function handleListSuccess() {
+  async function handleListSuccess(tx) {
+    await tx.wait(1)
     dispatch({
       type: "success",
       message: "NFT listing",
       title: "NFT listed",
-      position: "topR"
+      position: "topR",
     })
   }
 

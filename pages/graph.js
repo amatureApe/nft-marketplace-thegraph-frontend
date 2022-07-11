@@ -16,5 +16,5 @@ const GET_ACTIVE_ITEMS = gql`
 export default function GraphQuery() {
   const { loading, error, data } = useQuery(GET_ACTIVE_ITEMS);
   console.log(data);
-  return <div>hi</div>
+  return <div className="text-4xl italic">**Check the Console to see the output for your GraphQuery</div>
 }
